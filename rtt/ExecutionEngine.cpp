@@ -244,7 +244,9 @@ namespace RTT
     {
         // forward message to master ExecutionEngine if available
         if (mmaster) {
-            return mmaster->process(c);
+            bool result = mmaster->process(c);
+            msg_cond.broadcast();
+            return result;
         }
 
         if ( c && this->getActivity() ) {
